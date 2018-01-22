@@ -25,7 +25,7 @@ var forFrame = (function () {
 
                 };
 
-                obj.forFrame.call(obj.disp, this);
+                //obj.forFrame.call(obj.disp, this);
 
                 this.obj.push(obj);
 
@@ -103,7 +103,7 @@ var forFrame = (function () {
         ff.bias = 0;
 
         ff.obj = [];
-        ff.play = false;
+        ff.play = true;
         ff.width = ff.width || 320;
         ff.height = ff.height || 240;
         ff.name = ff.name || 'untitled';
@@ -158,13 +158,24 @@ var forFrame = (function () {
                     ff.per = ff.frame / ff.maxFrame;
                     ff.bias = 1 - Math.abs(.5 - ff.per) / .5;
 
-                    ff.forFrame.call(_.merge(ff, ffAPI));
+                    // call main for frame method
+                    ff.forFrame.call(_.merge({}, ff, ffAPI));
 
+                    // call for frame methods for all display objects
                     var i = 0,
                     len = ff.obj.length;
                     while (i < len) {
 
-                        ff.obj[i].forFrame.call(ff.obj[i].disp, ff);
+                        //ff.obj[i].forFrame.call(ff.obj[i].disp, ff);
+
+                        ff.obj[i].forFrame.call(
+
+                            _.merge({}, ff, ffAPI, {
+
+                                obj: ff.obj[i],
+                                disp: ff.obj[i].disp
+
+                            }));
 
                         i += 1;
 

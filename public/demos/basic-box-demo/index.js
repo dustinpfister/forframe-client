@@ -11,10 +11,13 @@ forFrame({
             id: 'box',
             type: 'graphics',
             forFrame: function (ff) {
-                this.clear();
-                this.beginFill(0x0000ff);
-                this.drawRect(0, 0, 32, 32);
-                this.endFill();
+
+                var gfx = this.disp;
+                gfx.clear();
+                gfx.beginFill(0x0000ff);
+                gfx.drawRect(0, 0, 32, 32);
+                gfx.endFill();
+
             }
         });
 

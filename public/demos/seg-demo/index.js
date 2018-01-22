@@ -11,10 +11,11 @@ forFrame({
             id: 'box',
             type: 'graphics',
             forFrame: function (ff) {
-                this.clear();
-                this.beginFill(0x0000ff);
-                this.drawRect(0, 0, 32, 32);
-                this.endFill();
+                var gfx = this.disp;
+                gfx.clear();
+                gfx.beginFill(0x0000ff);
+                gfx.drawRect(0, 0, 32, 32);
+                gfx.endFill();
             }
         });
 
@@ -22,10 +23,11 @@ forFrame({
             id: 'seg-box',
             type: 'graphics',
             forFrame: function (ff) {
-                this.clear();
-                this.beginFill(0x00ff00);
-                this.drawRect(0, 0, 32, 32);
-                this.endFill();
+                var gfx = this.disp;
+                gfx.clear();
+                gfx.beginFill(0x00ff00);
+                gfx.drawRect(0, 0, 32, 32);
+                gfx.endFill();
             }
         });
 
