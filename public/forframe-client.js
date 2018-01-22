@@ -5,19 +5,27 @@ var forFrame = (function () {
     // the api for the init methods of a ff object
     var initAPI = {
 
-        add: function (type, id, draw) {
+        // add a display object
+        //addDisp: function (type, id, draw) {
 
-            if (type === 'graphics') {
+        addDisp: function (options) {
+
+            options = options || {};
+            options.type = options.type || 'graphics';
+            options.id = options.id || 'disp' + this.obj.length;
+            options.forFrame = options.forFrame || function () {};
+
+            if (options.type === 'graphics') {
 
                 var obj = {
 
-                    id: id,
+                    id: options.id,
                     disp: this.game.add.graphics(0, 0),
-                    draw: draw || function () {}
+                    forFrame: options.forFrame
 
                 };
 
-                obj.draw.call(obj.disp, this);
+                obj.forFrame.call(obj.disp, this);
 
                 this.obj.push(obj);
 
@@ -117,7 +125,7 @@ var forFrame = (function () {
 
                     //ff.game.input.onDown.add(function () {
 
-                        //tick(ff);
+                    //tick(ff);
 
                     //}, this)
 
@@ -136,7 +144,7 @@ var forFrame = (function () {
                     len = ff.obj.length;
                     while (i < len) {
 
-                        ff.obj[i].draw.call(ff.obj[i].disp, ff);
+                        ff.obj[i].forFrame.call(ff.obj[i].disp, ff);
 
                         i += 1;
 

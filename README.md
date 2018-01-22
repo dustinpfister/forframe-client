@@ -30,14 +30,15 @@ Create an html file and link to forframe-client, and it's dependency phaser. The
                 // the init method is called once to set things up
                 init: function () {
 
-                    // add a display object, of type 'graphics', and give it an id of 'box'
-                    this.add('graphics', 'box', function (ff) {
-
-                        this.clear();
-                        this.beginFill(0x0000ff);
-                        this.drawRect(0, 0, 32, 32);
-                        this.endFill();
-
+                    this.addDisp({
+                        id:'box',
+                        type:'graphics', 
+                        forFrame:function (ff) {
+                            this.clear();
+                            this.beginFill(0x0000ff);
+                            this.drawRect(0, 0, 32, 32);
+                            this.endFill();
+                        }
                     });
 
                 },
