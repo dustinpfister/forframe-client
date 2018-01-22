@@ -2,6 +2,8 @@ forFrame({
 
     name: 'basic-box-demo',
 
+    maxFrame: 40,
+
     // the init method is called once to set things up
     init: function () {
 

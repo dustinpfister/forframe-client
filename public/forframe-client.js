@@ -38,11 +38,36 @@ var forFrame = (function () {
     // forFrame method api
     ffAPI = {
 
+        // get display object
         get: function (id) {
 
             return _.find(this.obj, {
                 id: id
             });
+
+        },
+
+        // segment method
+        seg: function (rules, forFrame) {
+
+            rules = rules || 0.25;
+            forFrame = forFrame || function () {};
+
+            // set segment values
+            let maxFrame = this.maxFrame * rules,
+            frame = this.frame % maxFrame,
+            per = frame / maxFrame;
+
+            forFrame.call(_.merge({}, this, {
+                    seg: {
+
+                        frame: Math.floor(frame),
+                        maxFrame: Math.floor(maxFrame),
+                        per: per,
+                        bias: 1 - Math.abs(.5 - per) / .5
+
+                    }
+                }));
 
         }
 
@@ -76,8 +101,9 @@ var forFrame = (function () {
         ff.maxFrame = ff.maxFrame || 50;
         ff.per = 0;
         ff.bias = 0;
+
         ff.obj = [];
-        ff.play = true;
+        ff.play = false;
         ff.width = ff.width || 320;
         ff.height = ff.height || 240;
         ff.name = ff.name || 'untitled';
@@ -122,12 +148,6 @@ var forFrame = (function () {
                         tick(ff);
 
                     });
-
-                    //ff.game.input.onDown.add(function () {
-
-                    //tick(ff);
-
-                    //}, this)
 
                 },
 
