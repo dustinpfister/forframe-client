@@ -48,7 +48,7 @@ var forFrame = (function () {
         },
 
         // segment method
-        seg: function (rules, forFrame) {
+        segment: function (rules, forFrame) {
 
             rules = rules || 0.25;
             forFrame = forFrame || function () {};

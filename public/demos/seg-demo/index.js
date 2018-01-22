@@ -23,11 +23,25 @@ forFrame({
             id: 'seg-box',
             type: 'graphics',
             forFrame: function (ff) {
-                var gfx = this.disp;
-                gfx.clear();
-                gfx.beginFill(0x00ff00);
-                gfx.drawRect(0, 0, 32, 32);
-                gfx.endFill();
+
+                // segment methods can be used in
+                // the forFrame methods of display objects
+
+                // this will give me values relative to 1% of
+                // total frames
+                this.segment(.01, function () {
+
+                    var gfx = this.disp;
+
+                    // segment vales are in the seg object
+                    var size = 16 + 16 * this.seg.bias;
+
+                    gfx.clear();
+                    gfx.beginFill(0x00ff00);
+                    gfx.drawRect(-size / 2, -size / 2, size, size);
+                    gfx.endFill();
+
+                });
             }
         });
 
@@ -37,8 +51,11 @@ forFrame({
 
         game = this.game;
 
+        // segment methods can also be used in the main forFrame
+        // method as well
+
         // every 10% of frames
-        this.seg(.10, function () {
+        this.segment(.10, function () {
 
             var bx = this.get('box').disp;
 
