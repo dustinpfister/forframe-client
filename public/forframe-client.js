@@ -10,6 +10,8 @@ var forFrame = (function () {
 
         addDisp: function (options) {
 
+            var obj = {};
+
             options = options || {};
             options.type = options.type || 'graphics';
             options.id = options.id || 'disp' + this.obj.length;
@@ -17,19 +19,29 @@ var forFrame = (function () {
 
             if (options.type === 'graphics') {
 
-                var obj = {
-
-                    id: options.id,
-                    disp: this.game.add.graphics(0, 0),
-                    forFrame: options.forFrame
-
-                };
-
-                //obj.forFrame.call(obj.disp, this);
-
-                this.obj.push(obj);
+                obj.disp = this.game.add.graphics(0, 0);
 
             }
+
+            if (options.type === 'text') {
+                //game.add.text(0, 0, 'Hello World', {fill : 'white'});
+
+                //obj.disp = this.game.add.graphics(0, 0);
+
+                options.text = options.text || 'hello world';
+                options.style = options.style || {
+                    fill: 'red'
+                };
+
+                obj.disp = this.game.add.text(0, 0, options.text, options.style);
+
+            }
+
+            obj.id = options.id;
+            obj.type = options.type;
+            obj.forFrame = options.forFrame;
+
+            this.obj.push(obj);
 
         }
 
@@ -99,131 +111,131 @@ var forFrame = (function () {
 
                     }));
 
-                }
-
             }
 
-        },
+        }
 
-        // play / pause
-        play = function (ff) {
+    },
 
-            ff.play = !ff.play;
+    // play / pause
+    play = function (ff) {
 
-        },
+        ff.play = !ff.play;
 
-        // tick the animation
-        tick = function (ff) {
+    },
 
-            // step fram index
-            ff.frame += 1;
-            if (ff.frame >= ff.maxFrame) {
+    // tick the animation
+    tick = function (ff) {
 
-                ff.frame = 0;
+        // step fram index
+        ff.frame += 1;
+        if (ff.frame >= ff.maxFrame) {
 
-            }
-
-        };
-
-        // return the method that will be called when making the animation
-        return function (ff) {
-
-            // set starting values
             ff.frame = 0;
-            ff.maxFrame = ff.maxFrame || 50;
-            ff.per = 0;
-            ff.bias = 0;
 
-            ff.obj = [];
-            ff.play = true;
-            ff.width = ff.width || 320;
-            ff.height = ff.height || 240;
-            ff.name = ff.name || 'untitled';
+        }
 
-            // these should be given, but default to noop anyway
-            ff.init = ff.init || function () {};
-            ff.forFrame = ff.forFrame || function () {};
+    };
 
-            // using phaser
-            ff.game = new Phaser.Game(ff.width, ff.height + 50, Phaser.AUTO, container, {
+    // return the method that will be called when making the animation
+    return function (ff) {
 
-                    // phaser create state method
-                    create: function () {
+        // set starting values
+        ff.frame = 0;
+        ff.maxFrame = ff.maxFrame || 50;
+        ff.per = 0;
+        ff.bias = 0;
 
-                        // call the animations ini method here
-                        ff.init.call(_.merge(ff, initAPI));
+        ff.obj = [];
+        ff.play = true;
+        ff.width = ff.width || 320;
+        ff.height = ff.height || 240;
+        ff.name = ff.name || 'untitled';
 
-                        // be sure to do this so phaser does not
-                        // scroll to the top on mobile
-                        ff.game.scale.compatibility.scrollTo = false;
+        // these should be given, but default to noop anyway
+        ff.init = ff.init || function () {};
+        ff.forFrame = ff.forFrame || function () {};
 
-                        // play button
-                        var button_play = this.game.add.graphics(0, ff.height);
-                        button_play.beginFill(0x00ff00);
-                        button_play.drawRect(0, 0, 50, 50);
-                        button_play.endFill();
-                        button_play.inputEnabled = true;
-                        button_play.events.onInputDown.add(function () {
+        // using phaser
+        ff.game = new Phaser.Game(ff.width, ff.height + 50, Phaser.AUTO, container, {
 
-                            play(ff);
+                // phaser create state method
+                create: function () {
 
-                        });
+                    // call the animations ini method here
+                    ff.init.call(_.merge(ff, initAPI));
 
-                        // tick button
-                        var button_tick = this.game.add.graphics(0, ff.height);
-                        button_tick.beginFill(0x0000ff);
-                        button_tick.drawRect(50, 0, 50, 50);
-                        button_tick.endFill();
-                        button_tick.inputEnabled = true;
-                        button_tick.events.onInputDown.add(function () {
+                    // be sure to do this so phaser does not
+                    // scroll to the top on mobile
+                    ff.game.scale.compatibility.scrollTo = false;
 
-                            tick(ff);
+                    // play button
+                    var button_play = this.game.add.graphics(0, ff.height);
+                    button_play.beginFill(0x00ff00);
+                    button_play.drawRect(0, 0, 50, 50);
+                    button_play.endFill();
+                    button_play.inputEnabled = true;
+                    button_play.events.onInputDown.add(function () {
 
-                        });
+                        play(ff);
 
-                    },
+                    });
 
-                    // phaser update method
-                    update: function () {
+                    // tick button
+                    var button_tick = this.game.add.graphics(0, ff.height);
+                    button_tick.beginFill(0x0000ff);
+                    button_tick.drawRect(50, 0, 50, 50);
+                    button_tick.endFill();
+                    button_tick.inputEnabled = true;
+                    button_tick.events.onInputDown.add(function () {
 
-                        // set per, and bias values for the current frame
-                        ff.per = ff.frame / ff.maxFrame;
-                        ff.bias = 1 - Math.abs(.5 - ff.per) / .5;
+                        tick(ff);
 
-                        // call main for frame method
-                        ff.forFrame.call(_.merge({}, ff, ffAPI));
+                    });
 
-                        // call for frame methods for all display objects
-                        var i = 0,
-                        len = ff.obj.length;
-                        while (i < len) {
+                },
 
-                            //ff.obj[i].forFrame.call(ff.obj[i].disp, ff);
+                // phaser update method
+                update: function () {
 
-                            ff.obj[i].forFrame.call(
+                    // set per, and bias values for the current frame
+                    ff.per = ff.frame / ff.maxFrame;
+                    ff.bias = 1 - Math.abs(.5 - ff.per) / .5;
 
-                                _.merge({}, ff, ffAPI, {
+                    // call main for frame method
+                    ff.forFrame.call(_.merge({}, ff, ffAPI));
 
-                                    obj: ff.obj[i],
-                                    disp: ff.obj[i].disp
+                    // call for frame methods for all display objects
+                    var i = 0,
+                    len = ff.obj.length;
+                    while (i < len) {
 
-                                }));
+                        //ff.obj[i].forFrame.call(ff.obj[i].disp, ff);
 
-                            i += 1;
+                        ff.obj[i].forFrame.call(
 
-                        }
+                            _.merge({}, ff, ffAPI, {
 
-                        if (ff.play) {
+                                obj: ff.obj[i],
+                                disp: ff.obj[i].disp
 
-                            tick(ff);
+                            }));
 
-                        }
+                        i += 1;
 
                     }
 
-                }, true);
+                    if (ff.play) {
 
-        };
+                        tick(ff);
 
-    }
-        ());
+                    }
+
+                }
+
+            }, true);
+
+    };
+
+}
+    ());

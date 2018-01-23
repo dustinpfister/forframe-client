@@ -1,0 +1,8 @@
+## forFrame-client - 0.0.x Phaser Graphics, ForFrame API
+
+* Using lodash 4.17.4
+* Using Phaser 2.8.8 to make an instance of Phaser.Game that will be used to make animations
+* Have a forFrame API that is used in the body of forFrame methods via the this keyword.
+* Have a addDisp method that is used in init methods to make display objects.
+
+* can also add text disp objects

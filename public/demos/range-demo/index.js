@@ -1,6 +1,6 @@
 forFrame({
 
-    name: 'basic-box-demo',
+    name: 'range-demo',
 
     maxFrame: 100,
 

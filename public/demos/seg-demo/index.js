@@ -1,6 +1,6 @@
 forFrame({
 
-    name: 'basic-box-demo',
+    name: 'seg-demo',
 
     maxFrame: 1000,
 
