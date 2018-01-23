@@ -2,3 +2,11 @@
 outline: 1px solid;
 width:320px;
 }
+
+.wrap-demos {
+
+    outline: 1px solid #000000;
+    padding: 10px;
+    margin: 10px;
+
+}
