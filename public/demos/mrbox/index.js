@@ -8,26 +8,15 @@ forFrame({
     init: function () {
 
         this.addDisp({
-            id: 'mrbox-face',
-            type: 'graphics',
-            forFrame: function (ff) {
-                var gfx = this.disp;
-
-                gfx.clear();
-                gfx.beginFill(0xf1d100);
-                gfx.drawRect(0, 0, 64, 96);
-                gfx.endFill();
-            }
-        });
-
-        this.addDisp({
             id: 'mrbox-leg-right',
             type: 'graphics',
-            forFrame: function (ff) {
+            forFrame: function () {
                 var gfx = this.disp;
 
                 gfx.clear();
-                gfx.beginFill(0xf1d100);
+                gfx.lineStyle(3, '#000000');
+
+                gfx.beginFill(0xffffff);
                 gfx.drawRect(0, 0, 16, 96);
                 gfx.endFill();
             }
@@ -36,12 +25,62 @@ forFrame({
         this.addDisp({
             id: 'mrbox-leg-left',
             type: 'graphics',
-            forFrame: function (ff) {
+            forFrame: function () {
                 var gfx = this.disp;
 
                 gfx.clear();
-                gfx.beginFill(0xf1d100);
+                gfx.lineStyle(3, '#000000');
+
+                gfx.beginFill(0xffffff);
                 gfx.drawRect(0, 0, 16, 96);
+                gfx.endFill();
+            }
+        });
+
+        this.addDisp({
+            id: 'mrbox-face',
+            type: 'graphics',
+            forFrame: function () {
+                var gfx = this.disp;
+
+                gfx.clear();
+                gfx.lineStyle(3, '#000000');
+
+                gfx.beginFill(0xffffff);
+                gfx.drawRect(0, 0, 64, 96);
+                gfx.endFill();
+            }
+        });
+
+        this.addDisp({
+            id: 'mrbox-eyes',
+            type: 'graphics',
+            forFrame: function () {
+                var gfx = this.disp;
+
+                gfx.clear();
+                gfx.lineStyle(3, '#000000');
+
+                gfx.beginFill(0xffffff);
+                gfx.drawRect(0, 0, 16, 16);
+
+                gfx.beginFill(0xffffff);
+                gfx.drawRect(32, 0, 16, 16);
+
+                gfx.beginFill(0x000000);
+                gfx.drawRect(8, 8 - 8 * this.bias, 8, 8);
+
+                this.segment(.2, function () {
+
+                    var r = Math.PI * 2 * this.seg.per;
+                    var x = 35 - Math.cos(r) * 4,
+                    y = 4 + Math.sin(r) * 4;
+
+                    gfx.beginFill(0x000000);
+                    gfx.drawRect(x, y, 8, 8);
+
+                });
+
                 gfx.endFill();
             }
         });
@@ -75,9 +114,13 @@ forFrame({
         mrbox_face.x = game.width / 2 - mrbox_face.width / 2;
         mrbox_face.y = game.height / 2 - 96 - 25 + bounce;
 
+        gfx = this.get('mrbox-eyes').disp;
+        gfx.x = mrbox_face.x + mrbox_face.width - 40;
+        gfx.y = mrbox_face.y + mrbox_face.height / 2;
+
         tx.text = this.frame + '/' + this.maxFrame;
 
-        this.segment(.10, function () {
+        this.segment(.25, function () {
 
             gfx = this.get('mrbox-leg-right').disp;
 
