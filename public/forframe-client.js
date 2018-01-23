@@ -47,7 +47,7 @@ var forFrame = (function () {
 
         },
 
-        // segment method
+        // segment method use to make a repeating segment animation
         segment: function (rules, forFrame) {
 
             rules = rules || 0.25;
@@ -71,6 +71,7 @@ var forFrame = (function () {
 
         },
 
+        // range is used to make an animation that runs between a start and end range
         range: function (argv) {
 
             argv = argv || {};
