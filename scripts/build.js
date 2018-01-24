@@ -19,7 +19,9 @@ klaw('./src').on('data', function (item) {
             fn_target = fn + '.min' + ext,
             dir = path.join('./dist', fn_target);
 
-            return fs.writeFile(dir, 'utf-8');
+            fs.writeFile(path.join('./public', fn_target), min.minify(data).code, 'utf-8');
+
+            return fs.writeFile(dir, min.minify(data).code, 'utf-8');
 
         }).then(function () {
 
