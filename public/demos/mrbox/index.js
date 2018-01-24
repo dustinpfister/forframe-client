@@ -86,6 +86,39 @@ forFrame({
         });
 
         this.addDisp({
+            id: 'mrbox-mouth',
+            type: 'graphics',
+            forFrame: function () {
+                var gfx = this.disp;
+
+                gfx.clear();
+                gfx.lineStyle(3, '#000000');
+                gfx.beginFill(0xffffff);
+                gfx.drawRect(4 * this.bias, 0, 24- 8 * this.bias, 8+4 * this.bias);
+                gfx.endFill();
+
+            }
+
+        });
+
+        this.addDisp({
+            id: 'mrbox-nose',
+            type: 'graphics',
+            forFrame: function () {
+                var gfx = this.disp;
+
+                gfx.clear();
+                gfx.lineStyle(3, '#000000');
+
+                gfx.beginFill(0xffffff);
+                gfx.drawRect(0, 0, 64, 8);
+
+                gfx.endFill();
+
+            }
+        });
+
+        this.addDisp({
 
             id: 'out',
             type: 'text',
@@ -116,7 +149,19 @@ forFrame({
 
         gfx = this.get('mrbox-eyes').disp;
         gfx.x = mrbox_face.x + mrbox_face.width - 40;
-        gfx.y = mrbox_face.y + mrbox_face.height / 2;
+        gfx.y = mrbox_face.y + mrbox_face.height / 3;
+
+        gfx = this.get('mrbox-nose').disp;
+
+        gfx.x = mrbox_face.x + mrbox_face.width - 16;
+        gfx.y = mrbox_face.y + mrbox_face.height / 3 + 25;
+        gfx.pivot.x = 0;
+        gfx.pivot.y = gfx.height / 2;
+        gfx.angle = 20 * this.bias;
+
+        gfx = this.get('mrbox-mouth').disp;
+        gfx.x = mrbox_face.x + mrbox_face.width / 2;
+        gfx.y = mrbox_face.y + mrbox_face.height / 1.5;
 
         tx.text = this.frame + '/' + this.maxFrame;
 
