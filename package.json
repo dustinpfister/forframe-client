@@ -1,0 +1,26 @@
+{
+  "name": "forframe-client",
+  "version": "1.0.0",
+  "description": "Client for playing back for frame animations",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dustinpfister/forframe-client.git"
+  },
+  "keywords": [
+    "animation",
+    "for",
+    "frame",
+    "client",
+  ],
+  "author": "Dustin Pfister",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/dustinpfister/forframe-client/issues"
+  },
+  "homepage": "https://github.com/dustinpfister/forframe-client#readme"
+}

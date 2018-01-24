@@ -118,3 +118,10 @@ This method is called once to set up display objects.
 * default: noop
 
 This is the main method where I am defining the logic for the animation.
+
+## Legal
+
+### forFrame-client Copyright 2018 by Dustin Pfister.
+
+I declare all code written by me under the terms of GPL-3.0
+All borrowed code is subject to there own license terms.
