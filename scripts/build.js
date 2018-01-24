@@ -21,6 +21,7 @@ klaw('./src').on('data', function (item) {
 
             fs.writeFile(path.join('./public', fn_target), min.minify(data).code, 'utf-8');
 
+            fs.writeFile(path.join('./dist', path.basename(item.path)), data, 'utf-8');
             return fs.writeFile(dir, min.minify(data).code, 'utf-8');
 
         }).then(function () {
